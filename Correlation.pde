@@ -25,6 +25,7 @@ void draw(){
   
   lines();
   timeline();
+  textSize(10);
   population();
   income();
 }
@@ -32,6 +33,8 @@ void draw(){
 void lines(){
   line(sideMargin, 2*topMargin, sideMargin, height-topMargin);
   line(width-sideMargin, 2*topMargin, width-sideMargin, height-topMargin);
+  text("Population",sideMargin,topMargin*1.5);
+  text("Income Per Capita", width-sideMargin,topMargin*1.5);
 }
 
 void timeline(){
@@ -46,9 +49,19 @@ void timeline(){
 }
 
 void population(){
-  
+  int gap = (height - 3*topMargin)/(rows-1);
+  for (int i = 0; i < rows; i++){
+    textAlign(LEFT, TOP);
+    text(popData.getRowName(i), 10, 2*topMargin+gap*i);
+    textAlign(RIGHT, TOP);
+    text(nf(popData.getFloat(i, current), 0, 0) + " ", sideMargin, 2*topMargin+gap*i);
+  }
 }
 
 void income(){
-  
+  textAlign(LEFT, TOP);
+  int gap = (height - 3*topMargin)/(rows-1);
+  for (int i = 0; i < rows; i++){
+    text(ipcData.getFloat(i, current), width-sideMargin, 2*topMargin+gap*i);
+  }
 }
