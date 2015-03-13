@@ -23,14 +23,14 @@ void draw(){
   fill(0);
   textAlign(CENTER, TOP);
   
-  lines();
+  textSize(12);
+  columnLines();
   timeline();
   textSize(10);
   population();
-  income();
 }
 
-void lines(){
+void columnLines(){
   line(sideMargin, 2*topMargin, sideMargin, height-topMargin);
   line(width-sideMargin, 2*topMargin, width-sideMargin, height-topMargin);
   text("Population",sideMargin,topMargin*1.5);
@@ -49,19 +49,20 @@ void timeline(){
 }
 
 void population(){
-  int gap = (height - 3*topMargin)/(rows-1);
+  float gap = (height - 3*topMargin)/(rows-1);
+  float point;
   for (int i = 0; i < rows; i++){
     textAlign(LEFT, TOP);
     text(popData.getRowName(i), 10, 2*topMargin+gap*i);
     textAlign(RIGHT, TOP);
-    text(nf(popData.getFloat(i, current), 0, 0) + " ", sideMargin, 2*topMargin+gap*i);
+    point = 2*topMargin+gap*i;
+    text(nf(popData.getFloat(i, current), 0, 0) + " ", sideMargin, point);
+    income(i, gap, point+5);
   }
 }
 
-void income(){
+void income(int i, float gap, float point){
   textAlign(LEFT, TOP);
-  int gap = (height - 3*topMargin)/(rows-1);
-  for (int i = 0; i < rows; i++){
-    text(ipcData.getFloat(i, current), width-sideMargin, 2*topMargin+gap*i);
-  }
+  text(ipcData.getFloat(i, current), width-sideMargin, 2*topMargin+gap*i);
+  line(sideMargin,point,width-sideMargin,2*topMargin+gap*i+5);
 }
