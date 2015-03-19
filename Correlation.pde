@@ -1,9 +1,7 @@
 FloatTable popData, ipcData;
 Integrator[] positions, positions2;
 
-int topMargin, sideMargin;
-int current;
-int rows, columns;
+int topMargin, sideMargin, current, rows, columns;
 boolean zeros;
 float[] sorted, sortedIPC;
 float popGap, ipcGap;
@@ -16,7 +14,8 @@ void setup(){
   zeros = false;
   
   popData = new FloatTable("WorldData.tsv");
-  ipcData = new FloatTable("WorldIncome.tsv"); 
+  ipcData = new FloatTable("WorldIncome.tsv");
+  
   rows = popData.getRowCount();
   columns = ipcData.getColumnCount();
   popGap = (height - 3*topMargin)/(rows-1);
@@ -41,6 +40,7 @@ void setupIntegrator(){
 void draw(){
   background(255);
   stroke(0);
+  strokeWeight(1);
   fill(0);
   textAlign(CENTER, TOP);
   
@@ -117,7 +117,7 @@ void incomeData(int j){
     if(ipcData.getFloat(j, current) == sortedIPC[i]){
       positions2[j].target(2*topMargin+ipcGap*i);
       text(checkData(sortedIPC[i], false), width-sideMargin, positions2[j].value);
-      drawLine(positions[i].value+5, positions2[i].value+5);
+      drawLine(positions[j].value+5, positions2[j].value+5);
       i = rows;
     }
   }
@@ -141,7 +141,7 @@ String checkData(float x, boolean right){
       else
         return "";
     else
-      return " " + x;
+      return " " + nf(x, 0, 2);
   }
   else{
     if (x == 0)
