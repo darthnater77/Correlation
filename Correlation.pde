@@ -150,3 +150,18 @@ String checkData(float x, boolean right){
       return nf(x, 0, 0) + " ";
   }
 }
+
+void keyPressed(){
+  if (key == 'a' || key == 'A' || keyCode == LEFT){
+    current--;
+    if (current < 0)
+      current = columns-1;
+   update();
+  }
+  if (key == 's' || key == 'S' || keyCode == RIGHT){
+    current++;
+    if (current >= columns)
+      current = 0;
+    update();
+  }
+}
